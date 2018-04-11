@@ -10,4 +10,5 @@ fi
 docker login --username $DOCKER_USER_NAME --password $DOCKER_PASSWORD
 
 docker push cirrusci/bazel:base
-docker push cirrusci/bazel:0.11.0
+docker push cirrusci/bazel:0.12.0
+docker push cirrusci/bazel:latest
