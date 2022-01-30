@@ -5,4 +5,3 @@ environment:
 
 bazel_docker_builder:
   build_script: ./build_docker.sh
-  push_script: ./push_docker.sh
