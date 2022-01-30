@@ -2,6 +2,13 @@
 
 set -e
 
+if [ "$CIRRUS_BRANCH" != "master" ]
+then
+    exit 0
+fi
+
+docker login --username $DOCKER_USER_NAME --password $DOCKER_PASSWORD
+
 docker buildx create --name multibuilder
 docker buildx use multibuilder
 docker buildx inspect --bootstrap
