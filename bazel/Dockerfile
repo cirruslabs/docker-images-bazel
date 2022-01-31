@@ -1,14 +1,17 @@
-FROM cirrusci/bazel:base
+FROM openjdk:11-jdk
 
+ARG TARGETARCH
 ARG bazel_version
 
-ENV BAZEL_VERSION $bazel_version
+ENV USE_BAZEL_VERSION $bazel_version
 
-RUN wget -O install.sh https://github.com/bazelbuild/bazel/releases/download/${BAZEL_VERSION}/bazel-${BAZEL_VERSION}-installer-linux-x86_64.sh \
-    && chmod +x install.sh \
-    && ./install.sh --user \
-    && rm -f install.sh
+RUN apt-get update \
+    && apt-get install -y sudo curl wget git --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
-ENV PATH ${PATH}:${HOME}/bin
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN wget -O /bin/bazel "https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-$TARGETARCH" \
+    && chmod +x /bin/bazel
 
 RUN bazel version
