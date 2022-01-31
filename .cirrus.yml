@@ -4,4 +4,5 @@ environment:
   BAZEL_VERSION: 5.0.0
 
 bazel_docker_builder:
+  version_script: docker --version
   build_script: ./build_docker.sh
